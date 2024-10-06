@@ -30,3 +30,6 @@ class TargetFunction(abc.ABC):
 
         # Показываем график
         plt.show()
+
+    def getPointFitness(self, point):
+        return -self.getValue(point)
