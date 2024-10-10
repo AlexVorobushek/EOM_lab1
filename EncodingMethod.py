@@ -1,6 +1,8 @@
 import abc
 
-class EncodingMetod(abc.ABC):
+class EncodingMethod(abc.ABC):
+    codeLen: int
+
     @abc.abstractmethod
     def encode(self, point: tuple): pass
 

@@ -1,16 +1,17 @@
-from EncodingMetod import EncodingMetod
+from EncodingMethod import EncodingMethod
 from math import log2, ceil
 from numpy import binary_repr
 
-class ClassicEncoding(EncodingMetod):
+class ClassicEncoding(EncodingMethod):
     def __init__(self, restrictions: tuple[tuple[float, float], ...], steps: tuple[float, ...]) -> None:
         self.restrictions = restrictions
         self.steps = steps
+        self.codeLen = sum(ceil(log2(self.restrictions[i][1]-self.restrictions[i][0])/self.steps[i]) for i in range(len(steps)))
     
     def encode(self, point: tuple):
         return ''.join(
             binary_repr(
-                ceil((point[i]-self.restrictions[i][0])/self.steps[i]),
+                round((point[i]-self.restrictions[i][0])/self.steps[i]),
                 ceil(log2((self.restrictions[i][1]-self.restrictions[i][0])/self.steps[i]))
             ) for i in range(len(point))
         )

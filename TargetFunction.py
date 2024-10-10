@@ -16,7 +16,7 @@ class TargetFunction(abc.ABC):
         z = np.array([[self.getValue((xi, yi)) for xi, yi in zip(x_row, y_row)] for x_row, y_row in zip(x, y)])
 
         # Создаем фигуру и оси
-        fig = plt.figure()
+        fig = plt.figure(2)
         ax = fig.add_subplot(111, projection='3d')
 
         # Строим поверхность
@@ -28,8 +28,6 @@ class TargetFunction(abc.ABC):
         ax.set_zlabel('Z')
         ax.set_title('Целевая функция')
 
-        # Показываем график
-        plt.show()
 
     def getPointFitness(self, point):
         return -self.getValue(point)
