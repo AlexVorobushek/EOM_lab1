@@ -1,9 +1,10 @@
-from EncodingMethod import EncodingMethod
+from codeMethods.EncodingMethod import EncodingMethod
 from TargetFunction import TargetFunction
+from settings.AgentSettings import AgentSettings
 import random
 
-class Agent:
-    def __init__(self, encodingMethod: EncodingMethod, targetFunction: TargetFunction, point: tuple=None, line:str=None, crossSeparation: int = None) -> None:
+class Agent(AgentSettings):
+    def __init__(self, encodingMethod: EncodingMethod, targetFunction: TargetFunction, point: tuple=None, line:str=None) -> None:
         if point:
             self.point = point
             self.line = encodingMethod.encode(point)
@@ -18,7 +19,7 @@ class Agent:
             self.line: str = line
             self.fitness = targetFunction.getPointFitness(self.point)
 
-        self.crossSeparation = crossSeparation if crossSeparation != None else len(self.line)//2 
+        self.crossSeparation = self.crossSeparation if self.crossSeparation != None else len(self.line)//2
         self.encodingMethod = encodingMethod
         self.targetFunction = targetFunction
 
@@ -38,5 +39,5 @@ class Agent:
         randomBitIndex = random.randint(0, len(self.line)-1)
         newLineAsList = list(self.line)
         newLineAsList[randomBitIndex] = str(int(not bool(int(newLineAsList[randomBitIndex]))))
-        self.__init__(self.encodingMethod, self.targetFunction, line=''.join(newLineAsList), crossSeparation=self.crossSeparation)
+        self.__init__(self.encodingMethod, self.targetFunction, line=''.join(newLineAsList))
         return self

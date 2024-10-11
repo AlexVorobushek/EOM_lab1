@@ -1,42 +1,27 @@
 from WeierstrassFunction import WeierstrassFunction
-from ClassicEncoding import ClassicEncoding
+from codeMethods.ClassicEncoding import ClassicEncoding
+from codeMethods.GrayEncoding import GrayEncoding
 from Population import Population
+from Logger import Logger
 
 import matplotlib.pyplot as plt
 
-def draw(MSEHistory, BFHistory):
-    import numpy as np
-
-    x = np.linspace(0, len(MSEHistory), len(MSEHistory))
-
-    plt.figure(1, figsize=(10, 5))
-    plt.plot(x, MSEHistory, label='MSE', color='blue')
-    plt.plot(x, BFHistory, label='BF', color='red')
-
-    plt.title('Графики MSE и BF')
-    plt.xlabel('iteration')
-    plt.legend()
-
 if __name__ == "__main__":
-    N_ITER, N_POP = 140, 200
+    N_ITER = 150
 
     targetFunction = WeierstrassFunction()
-    encodingMethod = ClassicEncoding(((-5., 5.), (-5., 5.)), (0.001, 0.001))
-    population = Population(encodingMethod, targetFunction, N_POP, .01)
+    encodingMethod = GrayEncoding(((-5., 5.), (-5., 5.)), (10e-4, 10e-4))
+    population = Population(encodingMethod, targetFunction)
 
-    bestFitness = 10e-8
-
-    MSEHistory = []
-    BFHistory = []
+    logger = Logger(population, (0., 0.))
 
     for _ in range(N_ITER):
-        population.reproduction(N_POP//4)
+        population.reproduction()
         population.genocide()
         population.mutate()
 
-        MSEHistory.append(population.getMSE((0, 0)))
-        BFHistory.append(population.getBest().fitness)
+        logger.log()
     
-    draw(MSEHistory, BFHistory)
+    logger.draw()
     targetFunction.draw()
     plt.show()
