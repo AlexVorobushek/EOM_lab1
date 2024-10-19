@@ -32,7 +32,7 @@ class Agent(AgentSettings):
                 Agent(
                     self.encodingMethod,
                     self.targetFunction,
-                    line=self.line[self.crossSeparation:]+other.line[:self.crossSeparation]
+                    line=other.line[:self.crossSeparation]+self.line[self.crossSeparation:]
                 )]
 
     def mutate(self) -> 'Agent':

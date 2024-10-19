@@ -20,9 +20,6 @@ class Logger:
         self.targetFunction = targetFunction
     
     def log(self, population: Population) -> None:
-        # if self.isTest: self.MSEHistory.append(population.getMSE((0, 0)))
-        # self.BFHistory.append(population.getBest().fitness)
-
         self.avgF.append(np.mean(list(map(lambda agent: self.targetFunction.getValue(agent.point), population.agents))))
         self.avgX.append(np.mean(list(map(lambda agent: agent.point[0], population.agents))))
         self.avgY.append(np.mean(list(map(lambda agent: agent.point[1], population.agents))))
