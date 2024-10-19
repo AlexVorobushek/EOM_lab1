@@ -13,14 +13,14 @@ if __name__ == "__main__":
     encodingMethod = GrayEncoding(((-5., 5.), (-5., 5.)), (10e-4, 10e-4))
     population = Population(encodingMethod, targetFunction)
 
-    logger = Logger(population, (0., 0.))
+    logger = Logger(targetFunction, (0., 0.))
 
     for _ in range(N_ITER):
         population.reproduction()
         population.genocide()
         population.mutate()
 
-        logger.log()
+        logger.log(population)
     
     logger.draw()
     targetFunction.draw()
