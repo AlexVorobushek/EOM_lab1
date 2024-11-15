@@ -1,7 +1,7 @@
-from Population import Population
+from entity.Population import Population
 import matplotlib.pyplot as plt
 import numpy as np
-from TargetFunction import TargetFunction
+from entity.TargetFunction import TargetFunction
 
 class Logger:
     avgF = []

@@ -6,10 +6,11 @@ class TargetFunction(abc.ABC):
     @abc.abstractmethod
     def getValue(self, point: tuple, **args): pass
 
-    def draw(self):
+    def draw(self, restrictions, steps):
         # Создаем сетку значений x и y
-        x = np.linspace(-5, 5, 100)
-        y = np.linspace(-5, 5, 100)
+        xRange, yRange = restrictions
+        x = np.linspace(*xRange, int((xRange[1]-xRange[0])/steps[0]))
+        y = np.linspace(*yRange, int((yRange[1]-yRange[0])/steps[1]))
         x, y = np.meshgrid(x, y)
 
         # Вычисляем значения z для каждой точки сетки

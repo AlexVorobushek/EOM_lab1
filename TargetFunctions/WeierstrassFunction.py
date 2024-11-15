@@ -1,4 +1,4 @@
-from TargetFunction import TargetFunction
+from entity.TargetFunction import TargetFunction
 from math import cos, pi
 
 

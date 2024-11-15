@@ -1,4 +1,4 @@
-from codeMethods.EncodingMethod import EncodingMethod
+from entity.EncodingMethod import EncodingMethod
 from math import log2, ceil
 from numpy import binary_repr
 

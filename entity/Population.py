@@ -1,10 +1,11 @@
-from codeMethods.EncodingMethod import EncodingMethod
-from Agent import Agent
-from TargetFunction import TargetFunction
-from settings.PopulationSettings import PopulationSettings
+from entity.EncodingMethod import EncodingMethod
+from entity.Agent import Agent
+from entity.TargetFunction import TargetFunction
+from settings import PopulationSettings
+from settings import TargetSettings
 from random import random, choice, randint
 
-class Population(PopulationSettings):
+class Population(PopulationSettings, TargetSettings):
     def __init__(self, encodingMethod: EncodingMethod, targetFunction: TargetFunction):
         self.agents: list[Agent] = [Agent(encodingMethod, targetFunction) for _ in range(self.populationCount)]
         self.targetFunction = targetFunction
