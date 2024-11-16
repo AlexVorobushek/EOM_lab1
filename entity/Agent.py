@@ -1,6 +1,6 @@
 from entity.EncodingMethod import EncodingMethod
 from entity.TargetFunction import TargetFunction
-from settings import AgentSettings
+from settings.AgentSettings import AgentSettings
 import random
 
 class Agent(AgentSettings):

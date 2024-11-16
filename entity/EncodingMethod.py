@@ -1,5 +1,6 @@
 import abc
 
+
 class EncodingMethod(abc.ABC):
     codeLen: int
 

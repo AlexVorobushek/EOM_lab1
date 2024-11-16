@@ -1,5 +1,5 @@
 from entity.TargetFunction import TargetFunction
-from settings import TargetSettings
+from settings.TargetSettings import TargetSettings
 import numpy as np
 
 class ShekelFoxholeFunction(TargetFunction, TargetSettings):
