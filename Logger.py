@@ -13,6 +13,7 @@ class Logger:
     MSEY = []
     
     bestF = []
+    avgR = []
 
     def __init__(self, targetFunction: TargetFunction, realTargetFunctionMin: tuple[float, ...] = None) -> None:
         self.realTargetFunctionMin = realTargetFunctionMin
@@ -38,6 +39,7 @@ class Logger:
         ))))
 
         self.bestF.append(self.targetFunction.getValue(population.getBest().point))
+        self.avgR.append(self.getAvgR(population))
 
     def draw(self) -> None:
         plt.figure(1, figsize=(10, 5))
@@ -86,9 +88,16 @@ class Logger:
 
         plt.tight_layout()
 
-        # if self.isTest: plt.plot(x, self.MSEHistory, label='MSE', color='blue')
-        # plt.plot(x, self.BFHistory, label='BF', color='red')
-
-        # plt.title('Графики MSE и BF' if self.isTest else 'График BF')
+        # plt.figure(3, figsize=(10, 5))
+        # plt.subplot()
+        # plt.plot(self.avgR)
+        # plt.title('среднее расстояние между агентами')
         # plt.xlabel('iteration')
-        # plt.legend()
+        # plt.ylabel('avgR(iteration)')
+
+    def getAvgR(self, population: Population):
+        sumR = 0
+        for i in population:
+            for j in population:
+                if i!=j: sumR += ((i.point[0]-j.point[0])**2 + (i.point[1]-j.point[1])**2)**0.5
+        return sumR/population.populationCount

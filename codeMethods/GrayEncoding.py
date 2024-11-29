@@ -12,28 +12,16 @@ class GrayEncoding(EncodingMethod, TargetSettings):
         self.codeLen = sum(ceil(log2((self.restrictions[i][1]-self.restrictions[i][0])/self.steps[i])) for i in range(len(self.steps)))
         super().__init__()
     
-    def encode(self, point: tuple) -> str:
-        gray_code = []
-        for i in range(len(point)):
-            value = round((point[i] - self.restrictions[i][0]) / self.steps[i])
-            abscissaLineLen = ceil(log2((self.restrictions[i][1] - self.restrictions[i][0]) / self.steps[i]))
-            gray_value = self.to_gray(value)
-            gray_code.append(binary_repr(gray_value, width=abscissaLineLen))
-        return ''.join(gray_code)
+    def codeCoordinate(self, coorValue: float, coorIndex: int):
+        value = round((coorValue - self.restrictions[coorIndex][0]) / self.steps[coorIndex])
+        abscissaLineLen = ceil(log2((self.restrictions[coorIndex][1] - self.restrictions[coorIndex][0]) / self.steps[coorIndex]))
+        gray_value = self.to_gray(value)
+        return binary_repr(gray_value, width=abscissaLineLen)
     
-    def decode(self, line: str) -> tuple[float, ...]:
-        point = []
-        index = 0
-        for i in range(len(self.steps)):
-            abscissaLineLen = ceil(log2((self.restrictions[i][1] - self.restrictions[i][0]) / self.steps[i]))
-            gray_code_segment = line[index:index + abscissaLineLen]
-            index += abscissaLineLen
-            
-            gray_value = int(gray_code_segment, 2)
-            value = self.from_gray(gray_value)
-            point.append(self.steps[i] * value + self.restrictions[i][0])
-        
-        return tuple(point)
+    def decodeCoordinate(self, coorValue: str, coorIndex: int):            
+        gray_value = int(coorValue, 2)
+        value = self.from_gray(gray_value)
+        return self.steps[coorIndex] * value + self.restrictions[coorIndex][0]
 
     def to_gray(self, num: int) -> int:
         return num ^ (num >> 1)

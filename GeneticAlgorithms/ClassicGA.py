@@ -9,20 +9,8 @@ class ClassicGA(GeneticAlgorithm):
     def __init__(self, population):
         super().__init__(population)
 
-    def getPairForReprodaction(self) -> tuple[Agent, Agent]:
-        sumFitness = sum(agent.fitness for agent in self.population)
-        probabilityList = [agent.fitness/sumFitness for agent in self.population]
-        
-        def getRandomAgent():
-            r = random()
-            resultAgentIndex = 0;
-            integrator = probabilityList[0]
-            while r > integrator+probabilityList[resultAgentIndex+1]:
-                resultAgentIndex+=1
-                integrator += probabilityList[resultAgentIndex]
-            return self.population[resultAgentIndex]
-        
-        return getRandomAgent(), getRandomAgent()
+    def getPairForReprodaction(self) -> tuple[Agent, Agent]:        
+        return self.population.choise(), self.population.choise()
 
     def reprodaction(self, pair: tuple[Agent, Agent]):
         return pair[0] + pair[1]

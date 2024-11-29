@@ -1,6 +1,6 @@
 import abc
 
-class GlobalSettings(abc.ABC):
+class AnswerSettings(abc.ABC):
     realTargetFunctionMinimumPoint = (-32., -32.)
     realTargetFunctionMinimum = 1
     
